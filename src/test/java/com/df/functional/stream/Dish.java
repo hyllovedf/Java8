@@ -4,10 +4,13 @@ package com.df.functional.stream;
  * create by hanyli 2019/11/19
  */
 public class Dish {
-    private final String name;
-    private final boolean vegetarian;
-    private final int calories;
-    private final Type type;
+    private  String name;
+    private  boolean vegetarian;
+    private  int calories;
+    private  Type type;
+
+    public Dish() {
+    }
 
     public Dish(String name, boolean vegetarian, int calories, Type type) {
         this.name = name;

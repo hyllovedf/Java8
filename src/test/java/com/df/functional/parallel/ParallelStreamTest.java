@@ -13,10 +13,11 @@ public class ParallelStreamTest {
 //        System.out.println(sequentialSum);//606700
 //        long parallelSum = test(ParallelStreams::parallelSum, 10000);
 //        System.out.println(parallelSum);//1482000
-//        long parallelSum = test(ParallelStreams::parallelRangeSum, 10000);
-//        System.out.println(parallelSum);//393200
-         long parallelSum = test(ParallelStreams::sequentialRangeSum, 10000);
-        System.out.println(parallelSum);//148000
+        long parallelSum = test(ParallelStreams::parallelRangeSum, 10000);
+        System.out.println(parallelSum);//393200
+//         long parallelSum = test(ParallelStreams::sequentialRangeSum, 10000);
+//        System.out.println(parallelSum);//148000
+
     }
 
     private static long test(Function<Long, Long> adder, long n) {
