@@ -24,13 +24,7 @@ public class ParallelStreamTest {
         System.out.println(parallelSum);//393200
 //         long parallelSum = test(ParallelStreams::sequentialRangeSum, 10000);
 //        System.out.println(parallelSum);//148000
-        List<Dish> menu = StreamApi.menu;
 
-//        list.forEach(li -> li.setName("df"));
-        System.out.println(menu);
-//        menu = menu.stream().filter(li -> li.getCalories() > 300).peek(li -> li.setName("df")).collect(Collectors.toList());
-        menu.stream().filter(li -> li.getCalories() > 300).forEach(li -> li.setName("df"));
-        System.out.println(menu);
     }
 
     private static long test(Function<Long, Long> adder, long n) {
