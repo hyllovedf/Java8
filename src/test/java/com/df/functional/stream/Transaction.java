@@ -11,6 +11,7 @@ public class Transaction {
         this.trader = trader;
         this.year = year;
         this.value = value;
+
     }
     public Trader getTrader(){
         return this.trader;

@@ -109,7 +109,7 @@ public class StreamApi {
         System.out.println("========分组groupingBy======");
         //一个参数
         Map<Dish.Type, List<Dish>> oneMap = menu.stream().collect(groupingBy(Dish::getType));
-        System.out.println(oneMap);//{MEAT=[pork, beef, chicken], FISH=[prawns, salmon], OTHER=[french fries, rice, season fruit, pizza]}
+        System.out.println(oneMap);//{M`EAT=[pork, beef, chicken], FISH=[prawns, salmon], OTHER=[french fries, rice, season fruit, pizza]}
 
         //两个参数
         Map<Dish.Type, Map<String, List<Dish>>> twoMap = menu.stream()

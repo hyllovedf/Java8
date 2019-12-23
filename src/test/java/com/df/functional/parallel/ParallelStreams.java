@@ -1,6 +1,5 @@
 package com.df.functional.parallel;
 
-import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
