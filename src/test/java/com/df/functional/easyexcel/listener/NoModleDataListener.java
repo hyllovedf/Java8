@@ -10,6 +10,7 @@ import com.df.functional.easyexcel.entity.DemoData;
 import lombok.SneakyThrows;
 import org.apache.poi.ss.usermodel.Name;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -21,6 +22,7 @@ public class NoModleDataListener extends AnalysisEventListener<Map<Integer, Cell
 
     private List<Map<Integer, CellData>> list = new ArrayList<>();
     public void invokeHead(Map<Integer, CellData> headMap, AnalysisContext context) {
+        BigDecimal numberValue = headMap.get(2).getNumberValue();
         String sheetName = context.readSheetHolder().getSheetName();
         Function<String, Map> stringIntegerFunction = (String s) -> {
             Map map = new HashMap();

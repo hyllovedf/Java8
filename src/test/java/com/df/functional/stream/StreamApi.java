@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.*;
+import java.util.concurrent.BlockingQueue;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

@@ -4,7 +4,13 @@ import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.cache.MapCache;
 import com.alibaba.excel.cache.selector.SimpleReadCacheSelector;
+import com.alibaba.excel.converters.Converter;
+import com.alibaba.excel.enums.CellDataTypeEnum;
+import com.alibaba.excel.metadata.CellData;
+import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.Sheet;
+import com.alibaba.excel.metadata.property.ExcelContentProperty;
+import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 import com.alibaba.excel.read.metadata.ReadSheet;
 import com.df.functional.easyexcel.entity.ConverterData;
 import com.df.functional.easyexcel.entity.DemoData;
@@ -32,7 +38,7 @@ public class ExcelReadTest {
     public static void main(String[] args) throws FileNotFoundException {
 //        String filename = "D:\\ideawork\\easyexcel-master\\src\\test\\resources\\demo\\demo.xlsx";
 //        String filename = "D:\\work\\(1127005002)北戴河燕山疗养院.xls";
-        String filename = "D:\\work\\df.xlsx";
+        String filename = "D:\\work\\df1.xlsx";
 //        String filename = "D:\\work\\export.xlsx";
         singleRead(filename);
 //        readAll(filename);
@@ -52,12 +58,31 @@ public class ExcelReadTest {
 //        EasyExcelFactory.read(filename, new DemoDataListListener()).sheet().headRowNumber(2).doRead();
 
         NoModleDataListener listener = new NoModleDataListener();
-        EasyExcelFactory.read(filename, listener)
+        ExcelReaderBuilder excelReaderBuilder = EasyExcelFactory.read(filename, listener)
                 .readCache(new MapCache())
-                .useDefaultListener(false)
-                .sheet(1)
-                .headRowNumber(0).doRead();
+                .useDefaultListener(false);
+        excelReaderBuilder.registerConverter(new Converter() {
+            @Override
+            public Class supportJavaTypeKey() {
+                return String.class;
+            }
 
+            @Override
+            public CellDataTypeEnum supportExcelTypeKey() {
+                return CellDataTypeEnum.NUMBER;
+            }
+
+            @Override
+            public Object convertToJavaData(CellData cellData, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+                return cellData.getNumberValue();
+            }
+
+            @Override
+            public CellData convertToExcelData(Object o, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+                return null;
+            }
+        });
+        excelReaderBuilder.sheet().headRowNumber(0).doRead();
 
 //        List<Object> objects = EasyExcelFactory.read(filename).sheet().doReadSync();
 //        for (Object object : objects) {
