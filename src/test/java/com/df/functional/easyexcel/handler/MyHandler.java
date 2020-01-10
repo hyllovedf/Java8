@@ -39,7 +39,7 @@ public class MyHandler extends LoopMergeStrategy implements WorkbookWriteHandler
     @Override
     public void afterWorkbookCreate(WriteWorkbookHolder writeWorkbookHolder) {
         WriteWorkbook writeWorkbook = writeWorkbookHolder.getWriteWorkbook();
-
+        writeWorkbookHolder.getWorkbook().getAllNames();
         writeWorkbook.setCustomWriteHandlerList(Arrays.asList(new OnceAbsoluteMergeStrategy(11,12,2,3)));
         List<WriteHandler> customWriteHandlerList = writeWorkbook.getCustomWriteHandlerList();
         writeWorkbookHolder.getCachedWorkbook().removeSheetAt(1);

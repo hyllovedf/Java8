@@ -3,6 +3,7 @@ package com.df.functional.easyexcel.entity;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.alibaba.excel.annotation.format.NumberFormat;
+import com.alibaba.excel.converters.string.StringImageConverter;
 import com.df.functional.easyexcel.listener.CustomStringStringConverter;
 import lombok.Data;
 
@@ -16,7 +17,7 @@ public class ConverterData {
     /**
      * 我自定义 转换器，不管数据库传过来什么 。我给他加上“自定义：”
      */
-//    @ExcelProperty(converter = CustomStringStringConverter.class)
+    @ExcelProperty(converter = StringImageConverter.class)
     private String string;
 
     /**

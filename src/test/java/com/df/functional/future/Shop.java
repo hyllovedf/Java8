@@ -1,5 +1,7 @@
 package com.df.functional.future;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Random;
 
 /**
@@ -22,6 +24,7 @@ public class Shop {
     }
 
     public double getPrice(String product) {
+
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {

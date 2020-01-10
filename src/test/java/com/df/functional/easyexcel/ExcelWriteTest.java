@@ -41,6 +41,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
@@ -55,20 +56,26 @@ public class ExcelWriteTest {
     private static List<FillData> fillDataList = new ArrayList<>();
 
     static {
+//        String path = "C:\\Users\\Administrator\\Pictures\\Feedback\\{458BCFAD-6D6A-4170-9560-353B1B981FEE}\\Capture001.png";
+        String path = "https://imgm.gmw.cn/attachement/jpg/site215/20200109/3670403329316376349.jpg";
+
         for (int i = 0; i < 10; i++) {
-            list.add(new DemoData("string: " + i, new Date(), 0.56, "ignore"));
+            list.add(new DemoData(path, new Date(), 0.56, "ignore"));
             complexHeadWirteList.add(new ComplexHeadWirte("string: " + i, new Date(), 0.56));
             fillDataList.add(new FillData("df", i, 178));
         }
     }
 
     public static void main(String[] args) {
+        String path = "https://imgm.gmw.cn/attachement/jpg/site215/20200109/3670403329316376349.jpg";
+        File file = new File(path);
         simpleWrite();
 
     }
 
     public static void simpleWrite() {
         String filename = "simpleWrite-" + System.currentTimeMillis() + ".xlsx";
+        String path = "C:\\Users\\Administrator\\Pictures\\Feedback\\{458BCFAD-6D6A-4170-9560-353B1B981FEE}\\Capture001.png";
         //设置needHead(false)可以不写入头
         long start = System.currentTimeMillis();
         EasyExcelFactory.write(filename, DemoData.class).sheet(1).doWrite(list);
@@ -193,10 +200,12 @@ public class ExcelWriteTest {
         SimpleRowHeightStyleStrategy simpleRowHeightStyleStrategy = new SimpleRowHeightStyleStrategy((short) 70, (short) 50);
 
         OnceAbsoluteMergeStrategy onceAbsoluteMergeStrategy = new OnceAbsoluteMergeStrategy(1, 2, 1, 2);
-        EasyExcelFactory.write(filename, DemoData.class)
+        EasyExcelFactory.write(filename)
+                .head(head())
                 .registerWriteHandler(horizontalCellStyleStrategy)
                 .registerWriteHandler(simpleRowHeightStyleStrategy)
-                .registerWriteHandler(onceAbsoluteMergeStrategy).sheet(1).doWrite(list);
+//                .registerWriteHandler(onceAbsoluteMergeStrategy)
+                .sheet(0).doWrite(list);
     }
 
     @Test
@@ -225,13 +234,13 @@ public class ExcelWriteTest {
         List<List<String>> list = new ArrayList<List<String>>();
         List<String> head0 = new ArrayList<String>();
         head0.add("字符串" + System.currentTimeMillis());
-        head0.add("字符串" + System.currentTimeMillis());
+//        head0.add("字符串" + System.currentTimeMillis());
         List<String> head1 = new ArrayList<String>();
         head1.add("数字" + System.currentTimeMillis());
-        head1.add("数字1" + System.currentTimeMillis());
+//        head1.add("数字1" + System.currentTimeMillis());
         List<String> head2 = new ArrayList<String>();
         head2.add("日期" + System.currentTimeMillis());
-        head2.add("日期1" + System.currentTimeMillis());
+//        head2.add("日期1" + System.currentTimeMillis());
         list.add(head0);
         list.add(head1);
         list.add(head2);

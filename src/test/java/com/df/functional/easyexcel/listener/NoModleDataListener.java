@@ -8,11 +8,11 @@ import com.alibaba.excel.support.ExcelTypeEnum;
 import com.alibaba.excel.util.ConverterUtils;
 import com.df.functional.easyexcel.entity.DemoData;
 import lombok.SneakyThrows;
+import org.apache.poi.ss.usermodel.Name;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * create by hanyli 2019/12/3
@@ -20,27 +20,33 @@ import java.util.Map;
 public class NoModleDataListener extends AnalysisEventListener<Map<Integer, CellData>> {
 
     private List<Map<Integer, CellData>> list = new ArrayList<>();
-    private boolean aBoolean = true;
     public void invokeHead(Map<Integer, CellData> headMap, AnalysisContext context) {
         String sheetName = context.readSheetHolder().getSheetName();
-        return;
+        Function<String, Map> stringIntegerFunction = (String s) -> {
+            Map map = new HashMap();
+            map.put(s, 1);
+            return map;
+        };
     }
-    public boolean hasNext(AnalysisContext context) {
-
-        return aBoolean;
-    }
+    private boolean hasnext = true;
     @SneakyThrows
     @Override
     public void invoke(Map<Integer, CellData> integerCellDataMap, AnalysisContext analysisContext) {
         ExcelTypeEnum excelType = analysisContext.readWorkbookHolder().getExcelType();
         list.add(integerCellDataMap);
-        aBoolean = false;
+        /*if () {
+        达到某个条件设置
+            hasnext = false;
+        }*/
     }
 
-
+    @Override
+    public boolean hasNext(AnalysisContext context) {
+        return hasnext;
+    }
     @Override
     public void doAfterAllAnalysed(AnalysisContext analysisContext) {
-        aBoolean = true;
         System.out.println(list.size());
+        list.clear();
     }
 }

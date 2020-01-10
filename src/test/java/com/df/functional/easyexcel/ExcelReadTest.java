@@ -2,11 +2,15 @@ package com.df.functional.easyexcel;
 
 import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelReader;
+import com.alibaba.excel.cache.MapCache;
+import com.alibaba.excel.cache.selector.SimpleReadCacheSelector;
+import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.excel.read.metadata.ReadSheet;
 import com.df.functional.easyexcel.entity.ConverterData;
 import com.df.functional.easyexcel.entity.DemoData;
 import com.df.functional.easyexcel.entity.RptFormula;
 import com.df.functional.easyexcel.listener.*;
+import com.df.functional.util.ExcelUtil;
 import com.sun.javafx.logging.JFRInputEvent;
 import org.junit.Test;
 
@@ -16,6 +20,10 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.stream.Collectors;
 
 /**
  * create by hanyli 2019/12/3
@@ -23,7 +31,9 @@ import java.util.List;
 public class ExcelReadTest {
     public static void main(String[] args) throws FileNotFoundException {
 //        String filename = "D:\\ideawork\\easyexcel-master\\src\\test\\resources\\demo\\demo.xlsx";
-        String filename = "D:\\work\\(1127005002)北戴河燕山疗养院.xls";
+//        String filename = "D:\\work\\(1127005002)北戴河燕山疗养院.xls";
+        String filename = "D:\\work\\df.xlsx";
+//        String filename = "D:\\work\\export.xlsx";
         singleRead(filename);
 //        readAll(filename);
 //        converterRead(filename);
@@ -42,8 +52,11 @@ public class ExcelReadTest {
 //        EasyExcelFactory.read(filename, new DemoDataListListener()).sheet().headRowNumber(2).doRead();
 
         NoModleDataListener listener = new NoModleDataListener();
-        EasyExcelFactory.read(new FileInputStream(filename), listener).headRowNumber(0)
-                .useDefaultListener(false).doReadAll();
+        EasyExcelFactory.read(filename, listener)
+                .readCache(new MapCache())
+                .useDefaultListener(false)
+                .sheet(1)
+                .headRowNumber(0).doRead();
 
 
 //        List<Object> objects = EasyExcelFactory.read(filename).sheet().doReadSync();

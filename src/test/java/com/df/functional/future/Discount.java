@@ -24,7 +24,7 @@ public class Discount {
     }
     private static double apply(double price, Code code) {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(4000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

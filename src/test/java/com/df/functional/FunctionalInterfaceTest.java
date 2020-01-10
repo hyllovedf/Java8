@@ -1,44 +1,46 @@
 package com.df.functional;
 
 import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * create by hanyli 2019/11/18
  */
 public class FunctionalInterfaceTest {
-    public static void main(String[] args) {
-//        List<Integer> list = new ArrayList<>();
-//        Supplier aNew = FunctionalInterfaceTest::new;
-//        test(()-> {
-//            return "df";
-//        });
-        List<Data> dataList = Arrays.asList(
-                new Data("1", "#"),
-                new Data("2", "#"),
-                new Data("8", "#"),
-                new Data("3", "1"),
-                new Data("4", "1"),
-                new Data("5", "2"),
-                new Data("6", "3")
-        );
-        t(dataList);
-        String s = dataList.get(0).getParent();
-        String s1 = dataList.get(1).getParent();
-        Map<String, String> map = new HashMap<>();
-        map.put("1", s);
-        map.put("2", s1);
-        System.out.println(map.get("1")==(map.get("2")));
+    private static BlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(100);
+    private static final Executor executor = new ThreadPoolExecutor(3, 3, 60, TimeUnit.SECONDS, queue, r -> {
+        Thread thread = new Thread(r, "ImportExcel-" + nextThreadId());
+        thread.setDaemon(true);
+        return thread;
+    }, new ThreadPoolExecutor.CallerRunsPolicy());
+    private static int threadId;
 
-        String path = FunctionalInterfaceTest.class.getResource("/").getPath();
-        System.out.println(path);
-
+    private static synchronized int nextThreadId() {
+        return threadId++;
     }
 
-    public static void test(MyFunctionalInterface myFunctionalInterface) {
+    public static void main(String[] args) {
+        long l = System.currentTimeMillis();
+        List<CompletableFuture> list = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            CompletableFuture test = test(i);
+            list.add(test);
+        }
+        list.forEach(CompletableFuture::join);
+        System.out.println(System.currentTimeMillis() - l);
+        System.out.println("=========");
+    }
 
-        myFunctionalInterface.te();
-        String test = myFunctionalInterface.test();
-        System.out.println(test);
+    public static CompletableFuture test(int i) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(Thread.currentThread().getName() + "--" + i);
+            return "";
+        },executor);
     }
 
     public static void t(List<Data> list) {

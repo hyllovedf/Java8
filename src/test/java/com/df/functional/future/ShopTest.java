@@ -1,5 +1,8 @@
 package com.df.functional.future;
 
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,25 +29,28 @@ public class ShopTest {
     private static List<Shop> shops = Arrays.asList(new Shop("BestPrice"),
             new Shop("LetsSaveBig"),
             new Shop("MyFavoriteShop"),
+            new Shop("MyFavoriteShop3"),
             new Shop("BuyItAll")
     );
-    private static final Executor executor = Executors.newFixedThreadPool(Math.min(shops.size(), 100), new ThreadFactory() {
-        @Override
-        public Thread newThread(Runnable r) {
-            Thread thread = new Thread(r);
-            thread.setDaemon(true);
-            return thread;
+
+    private static List<Shop> getShops() {
+        List<Shop> shops = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            shops.add(new Shop("BestPrice" + i));
         }
+        return shops;
+    }
+
+    private static final Executor executor = Executors.newFixedThreadPool(20, r -> {
+        Thread thread = new Thread(r);
+        thread.setDaemon(true);
+        return thread;
     });
+
     public static void main(String[] args) {
-        long start = System.nanoTime();
-//        List<String> prices = findPrices("df");//4127
-//        findPricesParallel("df");//1174
-//        List<String> df = findPricesFuture("df");//2144
-//        System.out.println(df);
-        List<String> df = findPricesFutureTwo("df");
-        System.out.println(df);
-        System.out.println((System.nanoTime() - start) / 1000000);
+        String s = "UR.IMP_RESULT";
+        String join = String.join(".", "UR.IMP_RESULT", "2019", "87", "87902");
+        System.out.println(join);
     }
 
     /**
@@ -84,13 +90,16 @@ public class ShopTest {
 
         List<CompletableFuture<String>> collect = shops.parallelStream()
                 .map(shop -> {
-                    return CompletableFuture.supplyAsync(() -> String.format("%s price is %.2f", shop.getName(), shop.getPrice(product)),executor);
+                    return CompletableFuture.supplyAsync(() -> String.format("%s price is %.2f", shop.getName(), shop.getPrice(product)), executor);
                 })
                 .collect(toList());
         return collect.stream().map(CompletableFuture::join).collect(toList());
     }
 
-    public static List<String> findPricesFutureTwo(String product) {
+    @Test
+    public void findPricesFutureTwo() {
+        long l = System.currentTimeMillis();
+        String product = "df";
         /*List<CompletableFuture<String>> collect = shops.stream()
                 .map(shop -> CompletableFuture.supplyAsync(() -> shop.getPriceStr(product)))
                 .map(future -> future.thenApply(Quote::parse))
@@ -100,16 +109,46 @@ public class ShopTest {
         List<CompletableFuture<String>> priceFutures =
                 shops.stream()
                         .map(shop -> {
-                            System.out.println(Thread.currentThread().getName()+"------");
+                            System.out.println(Thread.currentThread().getName() + "------");
                             return CompletableFuture.supplyAsync(
-                                () -> shop.getPriceStr(product), executor);})
+                                    () -> shop.getPriceStr(product), executor);
+                        })
                         .map(future -> future.thenApply(Quote::parse))
                         .map(future -> future.thenCompose(quote ->
-                               {
-                                   System.out.println(Thread.currentThread().getName()+"====");
-                                   return CompletableFuture.supplyAsync(
-                                        () -> Discount.applyDiscount(quote), executor);}))
+                        {
+                            System.out.println(Thread.currentThread().getName() + "====");
+                            return CompletableFuture.supplyAsync(
+                                    () -> Discount.applyDiscount(quote), executor);
+                        }))
                         .collect(toList());
-        return priceFutures.stream().map(CompletableFuture::join).collect(toList());
+        List<String> collect = priceFutures.stream().map(CompletableFuture::join).collect(toList());
+        System.out.println(collect);
+        System.out.println((System.currentTimeMillis() - l));
+    }
+
+    @Test
+    public void thenAccept() {
+        long l = System.currentTimeMillis();
+        String product = "df";
+        CompletableFuture[] futures = shops.stream().map(shop -> CompletableFuture.supplyAsync(() -> shop.getPriceStr(product), executor))
+                .map(fu -> fu.thenApply(Quote::parse))
+                .map(fu -> fu.thenCompose(quote -> CompletableFuture.supplyAsync(() -> {
+                    String s = Discount.applyDiscount(quote);
+                    System.out.println(s + "===" + Thread.currentThread().getName());
+                    return s;
+                }, executor)))
+//                .toArray(CompletableFuture[]::new);
+                .map(fu -> fu.thenAcceptAsync(s -> {
+                    try {
+                        Thread.sleep(600);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(s + Thread.currentThread().getName());
+                }, executor))
+                .toArray(CompletableFuture[]::new);
+        CompletableFuture.allOf(futures).join();
+        System.out.println("end");
+        System.out.println((System.currentTimeMillis() - l));
     }
 }
