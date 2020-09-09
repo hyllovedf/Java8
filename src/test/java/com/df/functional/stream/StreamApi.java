@@ -6,12 +6,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.*;
-import java.util.concurrent.BlockingQueue;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
-import static org.yaml.snakeyaml.nodes.NodeId.mapping;
 
 /**
  * create by hanyli 2019/11/19
@@ -22,13 +20,13 @@ public class StreamApi {
 
     public static List<Dish> menu = Arrays.asList(
             new Dish("pork", false, 800, Dish.Type.MEAT),
-            new Dish("beef", false, 700, Dish.Type.MEAT),
+            new Dish("beef", false, 800, Dish.Type.MEAT),
             new Dish("chicken", false, 400, Dish.Type.MEAT),
-            new Dish("french fries", true, 530, Dish.Type.OTHER),
-            new Dish("rice", true, 350, Dish.Type.OTHER),
-            new Dish("season fruit", true, 120, Dish.Type.OTHER),
-            new Dish("pizza", true, 550, Dish.Type.OTHER),
-            new Dish("prawns", false, 300, Dish.Type.FISH),
+            new Dish("french fries", false, 400, Dish.Type.OTHER),
+            new Dish("rice", false, 350, Dish.Type.OTHER),
+            new Dish("season fruit", false, 120, Dish.Type.OTHER),
+            new Dish("pizza", false, 350, Dish.Type.OTHER),
+            new Dish("prawns", false, 350, Dish.Type.FISH),
             new Dish("salmon", false, 450, Dish.Type.FISH));
 
     @Test
@@ -96,6 +94,17 @@ public class StreamApi {
     }
     @Test
     public void collect() {
+        List<Dish> collect7 = menu.stream().filter(m -> {
+            if (m.getCalories() == 400) {
+                m.setName("0909909");
+            }
+            return m.getCalories() >= 400;
+        }).collect(toList());
+        System.out.println(collect7);
+
+        List<Integer> collect6 = menu.stream().map(Dish::getCalories).distinct().collect(toList());
+        System.out.println(collect6);
+        System.out.println((String)null);
         List<String> list = Arrays.asList("hello", "world","happy");
         //=======连接字符串joining=======
         System.out.println("=======连接字符串joining=======");
@@ -133,9 +142,11 @@ public class StreamApi {
         System.out.println("=======分区partitioningBy====");
         Map<Boolean, List<Dish>> partitioningBy = menu.stream().collect(partitioningBy(Dish::isVegetarian));
         System.out.println(partitioningBy);
+        Map<Boolean, List<Dish>> collect5 = menu.stream().collect(groupingBy(Dish::isVegetarian));
+        System.out.println(collect5);
 
         System.out.println("=======mapping=======");
-        Set<Dish.Type> mapping = menu.stream().collect(mapping(Dish::getType, toSet()));
+        Set<Dish.Type> mapping = menu.stream().map(Dish::getType).collect(toSet());
         ArrayList<Dish.Type> collect3 = menu.stream().map(Dish::getType).collect(toCollection(ArrayList::new));
         System.out.println(mapping);
 

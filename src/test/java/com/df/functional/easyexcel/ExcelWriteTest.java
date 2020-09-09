@@ -60,7 +60,7 @@ public class ExcelWriteTest {
         String path = "https://imgm.gmw.cn/attachement/jpg/site215/20200109/3670403329316376349.jpg";
 
         for (int i = 0; i < 10; i++) {
-            list.add(new DemoData(path, new Date(), 0.56, "ignore"));
+            list.add(new DemoData("hah;fh  ", new Date(), 89867.0, "ignore"));
             complexHeadWirteList.add(new ComplexHeadWirte("string: " + i, new Date(), 0.56));
             fillDataList.add(new FillData("df", i, 178));
         }
@@ -74,11 +74,12 @@ public class ExcelWriteTest {
     }
 
     public static void simpleWrite() {
+
         String filename = "simpleWrite-" + System.currentTimeMillis() + ".xlsx";
         String path = "C:\\Users\\Administrator\\Pictures\\Feedback\\{458BCFAD-6D6A-4170-9560-353B1B981FEE}\\Capture001.png";
         //设置needHead(false)可以不写入头
         long start = System.currentTimeMillis();
-        EasyExcelFactory.write(filename, DemoData.class).sheet(1).doWrite(list);
+        EasyExcelFactory.write(filename, DemoData.class).sheet(1).useDefaultStyle(false).doWrite(list);
         System.out.println("时间" + (System.currentTimeMillis() - start) + "ms");
         /*ExcelWriter excelWriter = EasyExcelFactory.write(filename, DemoData.class).build();
         WriteSheet writeSheet = EasyExcelFactory.writerSheet("df").needHead(false).build();
@@ -279,13 +280,19 @@ public class ExcelWriteTest {
     }
 
     @Test
-    public void writeTemplate() throws IOException {
+    public void writeTemplate() {
         long start = System.currentTimeMillis();
         String templateName = "template.xlsx";
         String filename = "template" + System.currentTimeMillis() + ".xlsx";
         TemplateListener templateListener = new TemplateListener();
+        WriteCellStyle cellStyle = new WriteCellStyle();
+        cellStyle.setWrapped(true);
+        HorizontalCellStyleStrategy horizontalCellStyleStrategy = new HorizontalCellStyleStrategy(null, cellStyle);
         EasyExcelFactory.write(filename).withTemplate(templateName)
-                .registerWriteHandler(new CustomHandler()).sheet().doWrite(list);
+                .registerWriteHandler(horizontalCellStyleStrategy)
+                .registerWriteHandler(new CustomHandler())
+                .inMemory(true)
+                .sheet().doWrite(list);
 
 
 //        XSSFWorkbook workbook = new XSSFWorkbook(templateName);

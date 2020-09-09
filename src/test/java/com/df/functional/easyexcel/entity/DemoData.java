@@ -1,14 +1,15 @@
 package com.df.functional.easyexcel.entity;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.NumberFormat;
-import com.alibaba.excel.annotation.write.style.ColumnWidth;
-import com.alibaba.excel.annotation.write.style.ContentRowHeight;
-import com.alibaba.excel.annotation.write.style.HeadRowHeight;
+import com.alibaba.excel.annotation.write.style.*;
 import com.alibaba.excel.converters.string.StringImageConverter;
 import com.df.functional.easyexcel.handler.CustomStringImageConverter;
+import com.df.functional.easyexcel.listener.CustomStringStringConverter;
 import lombok.*;
+import org.apache.poi.ss.usermodel.BorderStyle;
 
 import java.util.Date;
 
@@ -23,15 +24,18 @@ import java.util.Date;
 //@ContentRowHeight(15)
 //@HeadRowHeight(25)
 @ColumnWidth(15)
+@ExcelIgnoreUnannotated
+@ContentStyle(borderLeft = BorderStyle.THIN,borderBottom = BorderStyle.THIN,borderRight = BorderStyle.THIN)
+@HeadStyle(borderLeft = BorderStyle.THIN,borderBottom = BorderStyle.THIN,borderRight = BorderStyle.THIN)
 public class DemoData {
 
-    @ExcelProperty(value = "字符串",converter = CustomStringImageConverter.class)
+//    @ExcelProperty(value = "字符串")
     private String string;
     @ColumnWidth(50)
-    @ExcelProperty("日期")
+    @ExcelProperty(value = "日期",index = 1)
     private Date date;
     @NumberFormat
-    @ExcelProperty("数字")
+    @ExcelProperty(value = "数字",converter = CustomStringStringConverter.class,index = 0)
     private Double doubleData;
     @ExcelIgnore
     private String ignore;

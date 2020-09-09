@@ -21,7 +21,7 @@ public class PoiTest {
 
     static {
         for (int i = 0; i < 200000; i++) {
-            list.add(new DemoData("string: " + i, new Date(), 0.56, "ignore"));
+//            list.add(new DemoData("string: " + i, new Date(), 0.56, "ignore"));
         }
     }
     public static void main(String[] args) throws Exception {

@@ -4,10 +4,7 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.df.functional.easyexcel.entity.DemoData;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * create by hanyli 2019/12/4
@@ -17,6 +14,8 @@ public class BaseListener extends AnalysisEventListener<Object> {
     public List<Object> list = new ArrayList();
     @Override
     public void invoke(Object o, AnalysisContext analysisContext) {
+        Set<Integer> hasReadSheet = analysisContext.readWorkbookHolder().getHasReadSheet();
+        hasReadSheet.size();
         list.add(o);
     }
 
@@ -24,5 +23,9 @@ public class BaseListener extends AnalysisEventListener<Object> {
     public void doAfterAllAnalysed(AnalysisContext analysisContext) {
         String sheetName = analysisContext.readSheetHolder().getSheetName();
         map.put(sheetName, list);
+    }
+
+    public List<Object> getList() {
+        return list;
     }
 }

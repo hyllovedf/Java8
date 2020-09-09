@@ -112,7 +112,7 @@ public class BaseReader {
     public DemoData createFmu(Row row){
         DemoData demoData = new DemoData();
         demoData.setString(getCellStr(row,0));
-        demoData.setDate(new Date());
+//        demoData.setDate(new Date());
         demoData.setDoubleData(Double.parseDouble(getCellStr(row, 2)));
         return demoData;
     }
