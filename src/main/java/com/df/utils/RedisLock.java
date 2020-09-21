@@ -1,6 +1,7 @@
 package com.df.utils;
 
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.connection.MessageListener;
@@ -48,7 +49,6 @@ public class RedisLock implements Lock {
                 break;
             }
             CountDownLatch countDownLatch = new CountDownLatch(1);
-
             try {
                 countDownLatch.await();
             } catch (InterruptedException e) {

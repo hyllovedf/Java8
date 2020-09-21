@@ -1,8 +1,19 @@
 package com.df.dataStructure;
 
+import sun.reflect.generics.tree.Tree;
+
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
+/**
+ * 二叉树遍历:
+ * 前序遍历: 根节点->左子树->右子树
+ * 后序遍历: 左子树->右子树->根节点
+ * 中序遍历: 左子树->根节点->右子树
+ * 层序遍历: 每层所有节点
+ */
 public class BinaryTree {
     public static TreeNode createTree(LinkedList<Integer> inputList) {
         TreeNode node = null;
@@ -18,6 +29,10 @@ public class BinaryTree {
         return node;
     }
 
+    /**
+     * 前序遍历
+     * @param treeNode
+     */
     public static void preOrder(TreeNode treeNode) {
         if (treeNode == null) {
             return;
@@ -26,6 +41,27 @@ public class BinaryTree {
         preOrder(treeNode.leftChild);
         preOrder(treeNode.rightChild);
     }
+
+    public static void perOrderStack(TreeNode treeNode) {
+        Stack<TreeNode> stack = new Stack<>();
+        while (treeNode != null || !stack.isEmpty()) {
+            while (treeNode != null) {
+                System.out.println(treeNode.data);
+                stack.push(treeNode);
+                treeNode = treeNode.leftChild;
+            }
+            if (!stack.isEmpty()) {
+                treeNode = stack.pop();
+                treeNode = treeNode.rightChild;
+            }
+        }
+
+    }
+
+    /**
+     * 中序遍历
+     * @param treeNode
+     */
     public static void inOrder(TreeNode treeNode) {
         if (treeNode == null) {
             return;
@@ -34,6 +70,26 @@ public class BinaryTree {
         System.out.println(treeNode.data);
         inOrder(treeNode.rightChild);
     }
+
+    public static void inOrderStack(TreeNode treeNode) {
+        Stack<TreeNode> stack = new Stack<>();
+        while (treeNode != null || !stack.isEmpty()) {
+            while (treeNode != null) {
+                stack.push(treeNode);
+                treeNode = treeNode.leftChild;
+            }
+            if (!stack.isEmpty()) {
+                treeNode = stack.pop();
+                System.out.println(treeNode.data);
+                treeNode = treeNode.rightChild;
+            }
+        }
+    }
+
+    /**
+     * 后序遍历
+     * @param treeNode
+     */
     public static void lastOrder(TreeNode treeNode) {
         if (treeNode == null) {
             return;
@@ -42,14 +98,56 @@ public class BinaryTree {
         lastOrder(treeNode.rightChild);
         System.out.println(treeNode.data);
     }
+
+    public static void lastOrderStack(TreeNode treeNode) {
+        Stack<TreeNode> stack = new Stack<>();
+        Stack<TreeNode> rootStack = new Stack<>();
+        stack.push(treeNode);
+        while (!stack.isEmpty()) {
+            TreeNode pop = stack.pop();
+            rootStack.push(pop);
+            if (pop.leftChild != null) {
+                stack.push(pop.leftChild);
+            }
+            if (pop.rightChild != null) {
+                stack.push(pop.rightChild);
+            }
+        }
+        while (!rootStack.isEmpty()) {
+            System.out.println(rootStack.pop().data);
+        }
+    }
+
+    public static void levelOrder(TreeNode treeNode) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(treeNode);
+        while (!queue.isEmpty()) {
+            TreeNode poll = queue.poll();
+            System.out.println(poll.data);
+            if (poll.leftChild != null) {
+                queue.add(poll.leftChild);
+            }
+            if (poll.rightChild != null) {
+                queue.add(poll.rightChild);
+            }
+        }
+    }
     public static void main(String[] args) {
         LinkedList<Integer> inputList = new LinkedList<>(Arrays.asList(new Integer[]{3, 2, 9, null, null, 10, null, null, 8, null, 4}));
         TreeNode tree = createTree(inputList);
+        levelOrder(tree);
+        System.out.println("====preOrder=====");
         preOrder(tree);
-        System.out.println("=========");
+        System.out.println("----perOrderStack-----");
+        perOrderStack(tree);
+        System.out.println("====inOrder=====");
         inOrder(tree);
-        System.out.println("=========");
+        System.out.println("----inOrderStack-----");
+        inOrderStack(tree);
+        System.out.println("====lastOrder=====");
         lastOrder(tree);
+        System.out.println("====lastOrderStack=====");
+        lastOrderStack(tree);
     }
     private static class TreeNode{
         private int data;
