@@ -36,7 +36,7 @@ public class HeapSort {
             downAdjust(arr, i, arr.length);
         }
         System.out.println(Arrays.toString(arr));
-        //循环删除堆顶元素  (其实就是最后一个和第一个元素交换)
+        //循环删除堆顶元素  (其实就是最后一个和第一个元素交换) 就是最大的排到了最后
         for (int i = arr.length - 1; i > 0; i--) {
             int temp = arr[i];
             arr[i] = arr[0];
