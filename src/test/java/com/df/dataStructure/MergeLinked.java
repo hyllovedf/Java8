@@ -68,7 +68,7 @@ public class MergeLinked {
         ListNode listNod3e = new ListNode(1, new ListNode(0, new ListNode(1,new ListNode(0,new ListNode(1,new ListNode(0))))));
         int decimalValue = getDecimalValue(listNod3e);
         System.out.println(decimalValue);
-        System.out.println(Integer.toString(3,16));
+        System.out.println(Integer.toString(37,16));
         reverseList(listNode);
 
     }
