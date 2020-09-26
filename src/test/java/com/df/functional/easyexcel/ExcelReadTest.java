@@ -85,7 +85,6 @@ public class ExcelReadTest {
         List<Object> list = demoDataListListener.getList();
         excelReader.finish();
         System.out.println(list.size());*/
-
         EasyExcelFactory.read(filename, DemoData2.class, new DataListListener()).sheet(1).doRead();
 
 
