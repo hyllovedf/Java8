@@ -32,7 +32,7 @@ public class TreeSum {
     public static void main(String[] args) {
         LinkedList<Integer> inputList = new LinkedList<>(Arrays.asList(new Integer[]{3, 2, 9, null, null, 10, null, null, 8, null, 4}));
         TreeNode tree = TreeUtil.createTree(inputList);
-        List<List<Integer>> getpath = getpath(tree, 14);
+        List<List<Integer>> getpath = getpath(tree, 18);
         System.out.println(getpath);
     }
 }
