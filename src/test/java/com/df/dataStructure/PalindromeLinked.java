@@ -20,6 +20,7 @@ public class PalindromeLinked {
             p1 = p1.next;
             p2 = p2.next;
         }
+
         fristHalf.next = reverseLinked(secondHalf);
         return true;
     }
