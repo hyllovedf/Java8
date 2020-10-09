@@ -1,4 +1,4 @@
-package com.df.dataStructure;
+package com.df.dataStructure.sort;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;

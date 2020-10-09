@@ -1,4 +1,4 @@
-package com.df.dataStructure;
+package com.df.dataStructure.linked;
 
 import com.sun.javafx.collections.MappingChange;
 

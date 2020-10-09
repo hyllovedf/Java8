@@ -1,4 +1,4 @@
-package com.df.dataStructure;
+package com.df.dataStructure.tree;
 
 import sun.reflect.generics.tree.Tree;
 

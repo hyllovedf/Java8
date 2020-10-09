@@ -1,4 +1,4 @@
-package com.df.dataStructure;
+package com.df.dataStructure.linked;
 
 /**
  * 回文链表 反转后和原链表一样
