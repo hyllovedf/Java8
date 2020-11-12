@@ -22,10 +22,6 @@ package com.df.dataStructure.string_array;
  * 解释：第一次选择 x = 5 且 y = 9 ，并把得到的新数字保存在 a 中。
  * 第二次选择 x = 5 且 y = 1 ，并把得到的新数字保存在 b 中。
  * 现在，我们有 a = 999 和 b = 111 ，最大差值为 888
- * <p>
- * 来源：力扣（LeetCode）
- * 链接：https://leetcode-cn.com/problems/max-difference-you-can-get-from-changing-an-integer
- * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  *
  * @author hanyli
  * @date 2020/10/9
@@ -80,7 +76,33 @@ public class MaxDiff {
     }
 
     public static void main(String[] args) {
-        int i = maxDiff(1101057);
-        System.out.println(i);
+//        int i = maxDiff(1101057);
+//        System.out.println(i);
+        int g = g();
+        System.out.println(g);
     }
+
+    private static int g() {
+        int i = 0;
+        try {
+            i=  k();
+        } catch (Exception e) {
+
+        }
+        try {
+            i = j();
+        } catch (Exception ex) {
+
+        }
+        return i;
+    }
+
+    private static int j() {
+        throw new RuntimeException("k");
+    }
+
+    private static int k() {
+        return 9;
+    }
+
 }

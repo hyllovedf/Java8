@@ -10,5 +10,5 @@ import java.util.Map;
 
 @Mapper
 public interface TestDao {
-    Map query();
+    List<Map<String,Object>> query();
 }

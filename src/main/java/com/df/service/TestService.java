@@ -18,7 +18,7 @@ public class TestService {
     @Autowired
     private TestDao testDao;
 
-    public Map query() {
+    public List<Map<String,Object>> query() {
         return testDao.query();
     }
 }

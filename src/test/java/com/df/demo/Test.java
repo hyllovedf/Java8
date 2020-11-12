@@ -1,6 +1,7 @@
 package com.df.demo;
 
 import com.alibaba.excel.EasyExcelFactory;
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.BuiltinFormats;
@@ -13,20 +14,57 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static java.math.BigDecimal.ROUND_HALF_UP;
 
 /**
  * @author hanyli
  * @date 2020/4/19
  */
 public class Test {
+    public int minDeletionSize(String[] A) {
+
+        List<Integer> list = new ArrayList<>();
+        char temp = 'a';
+
+        for(int i =0;i<A[0].length();i++){
+            for(String s:A){
+                if(s.charAt(i)<temp){
+                    list.add(i);
+                    break;
+                }
+                temp=s.charAt(i);
+            }
+            temp='a';
+        }
+        return list.size();
+    }
 
     public static void main(String[] args) throws Exception {
-        boolean noneEmpty = StringUtils.isNoneEmpty("df", " ",null);
-        System.out.println(noneEmpty);
-        Record record = getRecord("1");
-        Record record2 = getRecord("1");
-        System.out.println(record == record2);
+        BigDecimal bigDecimal = new BigDecimal(10.011);
+        BigDecimal bigDecimal1 = bigDecimal.setScale(3,ROUND_HALF_UP);
+        System.out.println(bigDecimal.toString());
+        System.out.println(bigDecimal1.toString());
+        BigDecimal bigDecimal2 = new BigDecimal("10.010999999999999232613845379091799259185791015625");
+        String s = "(\\w+)";
+        Pattern pattern = Pattern.compile(s);
+        String str = "GDDLX_JE * GDDLX_SZ";
+        Matcher matcher = pattern.matcher(str);
+        while (matcher.find()) {
+            String group = matcher.group(1);
+            System.out.println(group);
+            str = str.replace(group, "90");
+        }
+        System.out.println(str);
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(1, 2);
+        map.put(2, 2);
+        HashSet<Integer> integers = new HashSet<>(map.values());
+        System.out.println(integers.size());
+        map.put(1, map.getOrDefault(1, 0) + 1);
     }
 
     private static Record getRecord(String s) {

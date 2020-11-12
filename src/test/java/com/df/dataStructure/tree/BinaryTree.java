@@ -132,9 +132,30 @@ public class BinaryTree {
             }
         }
     }
+   static TreeNode head = new TreeNode(-1);
+    static TreeNode prev = null;
+    public static TreeNode convertBiNode(TreeNode root) {
+
+        postorder(root);
+        return head.rightChild;
+    }
+    public static void postorder(TreeNode root){
+        if(root==null) return ;
+        postorder(root.leftChild);
+        if(prev==null){
+            head=root;
+            head.rightChild=root;
+        }else{
+            prev.rightChild=root;
+            prev=root;
+        }
+        root.leftChild=null;
+        postorder(root.rightChild);
+    }
     public static void main(String[] args) {
         LinkedList<Integer> inputList = new LinkedList<>(Arrays.asList(new Integer[]{3, 2, 9, null, null, 10, null, null, 8, null, 4}));
         TreeNode tree = createTree(inputList);
+        convertBiNode(tree);
         levelOrder(tree);
         System.out.println("====preOrder=====");
         preOrder(tree);

@@ -4,15 +4,19 @@ import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.df.entity.DemoData;
+import com.df.service.TestService;
+import com.df.starter.HelloService;
 import org.ehcache.config.ResourceUnit;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -22,10 +26,27 @@ import java.util.concurrent.locks.ReentrantLock;
 @RestController
 public class TestController {
     private static List<DemoData> list = new ArrayList<>();
+
     static {
         for (int i = 0; i < 10; i++) {
             list.add(new DemoData("string: " + i, new Date(), 0.56, "ignore"));
         }
+    }
+
+    @Autowired
+    private HelloService helloService;
+    @Autowired
+    private TestService testService;
+
+    @GetMapping("starter")
+    public String starter() {
+        return helloService.say();
+    }
+
+    @GetMapping("test")
+    public String test() {
+        List<Map<String,Object>> query = testService.query();
+        return "ok";
     }
 
     @GetMapping("download")
@@ -42,6 +63,11 @@ public class TestController {
 //            writer.write(list, writeSheet);
 //        }
 //        writer.finish();
-         return "sf法法";
+        return "sf法法";
+    }
+
+    @PostMapping("upload")
+    public String upload(MultipartFile file) {
+        return file.getOriginalFilename();
     }
 }
