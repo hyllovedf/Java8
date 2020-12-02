@@ -44,10 +44,10 @@ import java.util.stream.Collectors;
 public class ExcelReadTest {
     public static void main(String[] args) throws FileNotFoundException {
 
-//        String filenamie = "D:\\ideawork\\easyexcel-master\\src\\test\\resources\\demo\\demo.xlsx";
+        String filename = "D:\\ideawork\\easyexcel-master\\src\\test\\resources\\demo\\demo.xlsx";
 //        String filename = "D:\\work\\(1127005002)北戴河燕山疗养院.xls";
 //        String filename = "D:\\work\\df1.xlsx";
-        String filename = "D:\\work\\simpleWrite.xls";
+//        String filename = "D:\\work\\simpleWrite.xls";
 //        String filename = "D:\\水质分析成果台账模板.xlsx";
 //        String filename =
 //                "C:\\Users\\Administrator\\Downloads\\[999020001]湖南管局本级 (1).xlsx";

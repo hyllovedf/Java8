@@ -155,7 +155,7 @@ public class BinaryTree {
     public static void main(String[] args) {
         LinkedList<Integer> inputList = new LinkedList<>(Arrays.asList(new Integer[]{3, 2, 9, null, null, 10, null, null, 8, null, 4}));
         TreeNode tree = createTree(inputList);
-        convertBiNode(tree);
+//        convertBiNode(tree);
         levelOrder(tree);
         System.out.println("====preOrder=====");
         preOrder(tree);
