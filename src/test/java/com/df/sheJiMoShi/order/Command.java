@@ -1,10 +1,10 @@
 package com.df.sheJiMoShi.order;
 
 public abstract class Command {
-    Reciver reciver;
+    Chef chef;
 
-    public Command(Reciver reciver) {
-        this.reciver = reciver;
+    public Command( Chef chef) {
+        this.chef = chef;
     }
 
     abstract void excuted();

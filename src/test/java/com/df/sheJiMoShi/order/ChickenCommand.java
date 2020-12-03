@@ -5,12 +5,12 @@ package com.df.sheJiMoShi.order;
  * @date 2020/12/2
  */
 public class ChickenCommand extends Command {
-    public ChickenCommand(Reciver reciver) {
-        super(reciver);
+    public ChickenCommand(Chef chef) {
+        super(chef);
     }
 
     @Override
     void excuted() {
-        reciver.chicken();
+        chef.chicken();
     }
 }

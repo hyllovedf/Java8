@@ -2,15 +2,16 @@ package com.df.sheJiMoShi.order;
 
 /**
  * @author hanyli
- * @date 2020/12/2
+ * @date 2020/12/3
  */
-public class ZhurouCommand extends Command {
-    public ZhurouCommand(Chef chef) {
+public class FriedCommand extends Command {
+
+    public FriedCommand(Chef chef) {
         super(chef);
     }
 
     @Override
     void excuted() {
-        chef.zhurou();
+        chef.fried();
     }
 }

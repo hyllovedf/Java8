@@ -5,12 +5,12 @@ package com.df.sheJiMoShi.order;
  * @date 2020/12/2
  */
 public class ZhutiCommand extends Command {
-    public ZhutiCommand(Reciver reciver) {
-        super(reciver);
+    public ZhutiCommand(Chef chef) {
+        super(chef);
     }
 
     @Override
     void excuted() {
-        reciver.zhuti();
+        chef.zhuti();
     }
 }

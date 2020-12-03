@@ -4,7 +4,7 @@ package com.df.sheJiMoShi.order;
  * @author hanyli
  * @date 2020/12/2
  */
-public class Reciver {
+public class BarbecueChef implements Chef {
     public void chicken() {
         System.out.println("烤  chicken");
     }
@@ -15,5 +15,10 @@ public class Reciver {
 
     public void zhuti() {
         System.out.println("烤  zhuti");
+    }
+
+    @Override
+    public void fried() {
+
     }
 }

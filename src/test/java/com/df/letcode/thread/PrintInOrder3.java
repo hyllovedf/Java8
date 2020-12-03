@@ -12,7 +12,9 @@ import java.util.function.IntConsumer;
  * 确保 second() 方法在 first() 方法之后被执行，third() 方法在 second() 方法之后被执行。
  */
 public class PrintInOrder3 {
+    private int i = 1;
     private Lock lock = new ReentrantLock();
+    private Condition condition_one = lock.newCondition();
     private Condition condition_two = lock.newCondition();
     private Condition condition_three = lock.newCondition();
 
@@ -20,7 +22,11 @@ public class PrintInOrder3 {
         lock.lock();
         // printFirst.run() outputs "first". Do not change or remove this line.
         try {
+            if (i != 1) {
+                condition_one.await();
+            }
             printFirst.run();
+            i++;
             condition_two.signalAll();
         } finally {
             lock.unlock();
@@ -32,8 +38,11 @@ public class PrintInOrder3 {
         lock.lock();
         // printSecond.run() outputs "second". Do not change or remove this line.
         try {
-            condition_two.await();
+            if (i != 2) {
+                condition_two.await();
+            }
             printSecond.run();
+            i++;
             condition_three.signalAll();
         } finally {
             lock.unlock();
@@ -44,8 +53,12 @@ public class PrintInOrder3 {
         lock.lock();
         // printThird.run() outputs "third". Do not change or remove this line.
         try {
-            condition_three.await();
+            if (i != 3) {
+                condition_three.await();
+            }
             printThird.run();
+            i -= 2;
+            condition_one.signalAll();
         } finally {
             lock.unlock();
         }
