@@ -12,7 +12,7 @@ import java.util.Stack;
  * @date 2020/9/21
  */
 public class QuickSort {
-    public static int partitioin(int[] arr, int startIndex, int end) {
+    private static int partitioin(int[] arr, int startIndex, int end) {
         int pivot = arr[startIndex];
         int left = startIndex + 1;
         int right = end;

@@ -47,8 +47,8 @@ public class BinaryHeap {
         System.out.println(Arrays.toString(arr));
     }
     public static void main(String[] args) {
-        int[] arr = {20, 654, 1, 43, 5, 66, 4, 2, 1};
-        upAdjust(arr);
+        int[] arr = {1,9,3,6,5,4,7,2,8};
+//        upAdjust(arr);
         buildHeap(arr);
     }
 }

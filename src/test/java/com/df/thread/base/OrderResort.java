@@ -1,8 +1,5 @@
 package com.df.thread.base;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 /**
  * @author hanyli
  * @date 2020/3/11

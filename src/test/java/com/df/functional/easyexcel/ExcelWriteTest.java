@@ -273,9 +273,23 @@ public class ExcelWriteTest {
         String filename = "fillHorizontalTest-" + System.currentTimeMillis() + ".xlsx";
         ExcelWriter excelWriter = EasyExcelFactory.write(filename).withTemplate(templateName).build();
         WriteSheet writeSheet = EasyExcelFactory.writerSheet().build();
-        FillConfig fillConfig = FillConfig.builder().direction(WriteDirectionEnum.HORIZONTAL).build();
-        excelWriter.fill(fillDataList, fillConfig, writeSheet);
-        excelWriter.fill(fillDataList, fillConfig, writeSheet);
+        Map<String, String> map1 = new HashMap<>();
+        Map<String, String> map2 = new HashMap<>();
+        Map<String, String> map3 = new HashMap<>();
+        map1.put("no", "1");
+        map1.put("name", "zpc");
+        map2.put("no", "2");
+        map2.put("name", "lisi");
+        map3.put("no", "3");
+        map3.put("name", "furi");
+        List<Map<String, String>> datas = new ArrayList<>();
+        datas.add(map1);
+        datas.add(map2);
+        datas.add(map3);
+        FillConfig fillConfig = FillConfig.builder().forceNewRow(Boolean.TRUE).build();
+        excelWriter.fill(datas, fillConfig, writeSheet);
+
+//        excelWriter.fill(fillDataList, fillConfig, writeSheet);
         excelWriter.finish();
     }
 

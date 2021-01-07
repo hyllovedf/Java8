@@ -9,7 +9,6 @@ server:
 #    key-alias: tomcat
 #    key-store-type: JKS
 
-
 spring:
   redis:
     port: 6379
