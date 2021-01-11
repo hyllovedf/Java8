@@ -14,13 +14,14 @@ public class PreorderN {
     List<Integer> list = new ArrayList<>();
     public List<Integer> preorder(Node root) {
         if (root==null) return null;
-        list.add(root.val);
+
         List<Node> children = root.children;
         if (children != null) {
             for (Node child : children) {
                 preorder(child);
             }
         }
+        list.add(root.val);
         return list;
     }
 }

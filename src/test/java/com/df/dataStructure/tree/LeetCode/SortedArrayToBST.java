@@ -5,6 +5,8 @@ import com.df.dataStructure.tree.TreeNode;
 /**
  * 108. 将有序数组转换为二叉搜索树
  * BST平衡二叉搜索树  中序遍历后的是升序顺序
+ * 所以有序数组中间那一个是一个父节点
+ * 左右两个就是其左右子节点
  * @author hanyli
  * @date 2021/1/7
  */
