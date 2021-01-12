@@ -55,7 +55,20 @@ public class BinaryTree {
                 treeNode = treeNode.rightChild;
             }
         }
-
+    }
+    public static void perOrderStack2(TreeNode treeNode) {
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(treeNode);
+        while (!stack.isEmpty()) {
+            TreeNode pop = stack.pop();
+            System.out.println(pop.data);
+            if (pop.rightChild != null) {
+                stack.push(pop.rightChild);
+            }
+            if (pop.leftChild != null) {
+                stack.push(pop.leftChild);
+            }
+        }
     }
 
     /**
@@ -161,6 +174,7 @@ public class BinaryTree {
         preOrder(tree);
         System.out.println("----perOrderStack-----");
         perOrderStack(tree);
+        perOrderStack2(tree);
         System.out.println("====inOrder=====");
         inOrder(tree);
         System.out.println("----inOrderStack-----");

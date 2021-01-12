@@ -1,7 +1,5 @@
 package com.df.dataStructure.tree;
 
-import com.df.dataStructure.tree.LeetCode.MaxDepthN;
-
 import java.util.List;
 
 /**
