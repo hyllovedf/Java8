@@ -11,6 +11,11 @@ import java.util.List;
  * @date 2021/1/12
  */
 public class IsValidBST {
+    /**
+     * 暴力  判断中序序列是否递增
+     * @param root
+     * @return
+     */
     public boolean isValidBST(TreeNode root) {
         List<Integer> list = new ArrayList<>();
         dfs(root, list);
@@ -31,6 +36,9 @@ public class IsValidBST {
         dfs(root.right,list);
     }
 
+    /**
+     * 中序  下一个节点是不是比之前节点大
+     */
     long max = Long.MIN_VALUE;
     public boolean isValidBST2(TreeNode root) {
         if (root==null) return true;
