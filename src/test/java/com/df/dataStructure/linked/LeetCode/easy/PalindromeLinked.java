@@ -1,6 +1,10 @@
-package com.df.dataStructure.linked;
+package com.df.dataStructure.linked.LeetCode.easy;
+
+import com.df.dataStructure.linked.LinkedUtil;
+import com.df.dataStructure.linked.ListNode;
 
 /**
+ * 234. 回文链表
  * 回文链表 反转后和原链表一样
  * 无需全部反转
  * 将后半部分反转 与前半部分比较  一样就是回文链表
@@ -44,7 +48,7 @@ public class PalindromeLinked {
     }
 
     public static void main(String[] args) {
-        ListNode listNode = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(2,new ListNode(1)))));
+        ListNode listNode = LinkedUtil.create(new int[]{1, 2, 2, 1});
         boolean palindrome = isPalindrome(listNode);
         System.out.println(palindrome);
     }

@@ -4,7 +4,7 @@ package com.df.dataStructure.linked;
  * @author hanyli
  * @date 2020/10/23
  */
-class ListNode {
+public class ListNode {
     public int val;
     public ListNode next;
 
