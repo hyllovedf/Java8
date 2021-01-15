@@ -15,7 +15,7 @@ import java.util.Queue;
  */
 public class AverageOfLevels {
     /**
-     * 利用层序遍历  每一层计算总和以及[平均值
+     * 利用层序遍历  每一层计算总和以及平均值
      * @param root
      * @return
      */

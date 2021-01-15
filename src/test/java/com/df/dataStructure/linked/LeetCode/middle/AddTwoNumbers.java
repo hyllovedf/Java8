@@ -17,12 +17,25 @@ import com.df.dataStructure.linked.ListNode;
  * @date 2021/1/14
  */
 public class AddTwoNumbers {
+    /**
+     * 每个节点相加  如果>=10  后面的需要进一位
+     * @param l1
+     * @param l2
+     * @return
+     */
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode sen = new ListNode(0);
         addTwoNumbers(l1, l2, sen, false);
         return sen.next;
     }
 
+    /**
+     *
+     * @param l1
+     * @param l2
+     * @param sen 哨兵节点 用于返回结果
+     * @param ten 是否进一位标志 true 进一位 false  不进
+     */
     private void addTwoNumbers(ListNode l1, ListNode l2, ListNode sen, boolean ten) {
         if (l1 == null && l2 == null) {
             if (ten) {

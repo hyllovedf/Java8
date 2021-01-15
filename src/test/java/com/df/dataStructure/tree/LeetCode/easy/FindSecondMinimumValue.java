@@ -21,6 +21,11 @@ import java.util.Set;
  * @date 2021/1/11
  */
 public class FindSecondMinimumValue {
+    /**
+     * 使用set记录节点值  然后找出第二小数值
+     * @param root
+     * @return
+     */
     public int findSecondMinimumValue(TreeNode root) {
         Set<Integer> set = new HashSet<>();
         inorder(root, set);
@@ -44,6 +49,7 @@ public class FindSecondMinimumValue {
         inorder(root.left, set);
         inorder(root.right, set);
     }
+
 
     public static void main(String[] args) {
         FindSecondMinimumValue findSecondMinimumValue = new FindSecondMinimumValue();

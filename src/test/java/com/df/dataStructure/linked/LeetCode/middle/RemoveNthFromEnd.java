@@ -4,6 +4,8 @@ import com.df.dataStructure.linked.ListNode;
 
 /**
  * 19. 删除链表的倒数第N个节点
+ * 这类题就是先让一个指针走N步
+ * 然后两个指针同时走  停止时就是前面的指针就是需要操作的节点
  * @author hanyli
  * @date 2021/1/14
  */

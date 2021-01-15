@@ -10,6 +10,14 @@ import com.df.dataStructure.linked.ListNode;
  * @date 2021/1/14
  */
 public class MergeTwoLists {
+    /**
+     * 同时遍历两个链表  每次选取较小的节点拼接到新链表上
+     * 需要注意的是两个链表长度不一的情况  最后需要吧剩下的
+     * 链表拼接到新链表上
+     * @param l1
+     * @param l2
+     * @return
+     */
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         if (l1 == null && l2 == null) return null;
         if (l1 == null) return l2;
@@ -35,6 +43,12 @@ public class MergeTwoLists {
         return sen.next;
     }
 
+    /**
+     * 思路和上面一致 使用递归实现
+     * @param l1
+     * @param l2
+     * @return
+     */
     public ListNode mergeTwoLists2(ListNode l1, ListNode l2) {
         if (l1 == null && l2 == null) return null;
         if (l1 == null) return l2;
