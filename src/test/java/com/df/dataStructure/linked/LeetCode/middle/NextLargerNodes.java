@@ -32,16 +32,6 @@ public class NextLargerNodes {
         return res;
     }
 
-    private int getvalue(List<Integer> list, int start, int val) {
-        for (int i = start; i < list.size(); i++) {
-            if (list.get(i) > val) {
-                return list.get(i);
-            }
-        }
-        return 0;
-    }
-
-
     public static void main(String[] args) {
         NextLargerNodes nextLargerNodes = new NextLargerNodes();
         nextLargerNodes.nextLargerNodes(LinkedUtil.create(2, 1, 5));

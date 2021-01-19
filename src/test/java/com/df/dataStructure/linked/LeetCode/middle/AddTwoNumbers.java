@@ -59,8 +59,8 @@ public class AddTwoNumbers {
     }
 
     public static void main(String[] args) {
-        ListNode listNode = LinkedUtil.create(new int[]{9, 9, 9, 9, 9, 9, 9});
-        ListNode listNode1 = LinkedUtil.create(new int[]{9, 9, 9, 9});
+        ListNode listNode = LinkedUtil.create(9, 9, 9, 9, 9, 9, 9);
+        ListNode listNode1 = LinkedUtil.create(9, 9, 9, 9);
         AddTwoNumbers addTwoNumbers = new AddTwoNumbers();
         addTwoNumbers.addTwoNumbers(listNode, listNode1);
     }
