@@ -11,6 +11,12 @@ package com.df.dataStructure.string_array.LeetCode.array.easy;
  * @date 2021/1/19
  */
 public class SearchInsert {
+    /**
+     * 使用二分法查找
+     * @param nums
+     * @param target
+     * @return
+     */
     public int searchInsert(int[] nums, int target) {
         int left = 0;
         int right = nums.length - 1;
@@ -25,5 +31,20 @@ public class SearchInsert {
             }
         }
         return right + 1;
+    }
+    public int searchInsert2(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (target < nums[mid]) {
+                right = mid;
+            } else if (target > nums[mid]) {
+                left = mid + 1;
+            } else {
+                return mid;
+            }
+        }
+        return left;
     }
 }
