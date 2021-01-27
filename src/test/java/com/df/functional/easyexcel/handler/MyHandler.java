@@ -38,33 +38,11 @@ public class MyHandler extends LoopMergeStrategy implements WorkbookWriteHandler
 
     @Override
     public void afterWorkbookCreate(WriteWorkbookHolder writeWorkbookHolder) {
-        WriteWorkbook writeWorkbook = writeWorkbookHolder.getWriteWorkbook();
-        writeWorkbookHolder.getWorkbook().getAllNames();
-        writeWorkbook.setCustomWriteHandlerList(Arrays.asList(new OnceAbsoluteMergeStrategy(11,12,2,3)));
-        List<WriteHandler> customWriteHandlerList = writeWorkbook.getCustomWriteHandlerList();
-        writeWorkbookHolder.getCachedWorkbook().removeSheetAt(1);
+
+        writeWorkbookHolder.getWorkbook().setSheetName(0,"sdsd");
     }
 
     @Override
     public void afterWorkbookDispose(WriteWorkbookHolder writeWorkbookHolder) {
-
-        Workbook cachedWorkbook = writeWorkbookHolder.getCachedWorkbook();
-        Workbook workbook = writeWorkbookHolder.getWorkbook();
-
-//        cachedWorkbook.removeSheetAt(1);
-        int numberOfSheets = cachedWorkbook.getNumberOfSheets();
-        for (int i = 0; i < numberOfSheets; i++) {
-
-            Sheet sheetAt = cachedWorkbook.getSheetAt(i);
-            CellStyle cellStyle = cachedWorkbook.createCellStyle();
-
-            sheetAt.getRow(2).getCell(2).setCellValue(73824836);
-            sheetAt.getRow(1).getCell(1).setCellValue("dgsgsgsgs");
-            Sheet sheet = workbook.getSheetAt(i);
-            sheet.getRow(11).getCell(0).setCellValue("df");
-
-        }
-
-        System.out.println(cachedWorkbook.getNumberOfSheets());
     }
 }

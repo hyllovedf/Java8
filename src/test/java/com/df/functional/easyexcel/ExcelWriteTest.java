@@ -105,6 +105,7 @@ public class ExcelWriteTest {
     public void complexHeadWirte() {
         String filename = "complexHeadWirte-" + System.currentTimeMillis() + ".xlsx";
         EasyExcelFactory.write(filename, ComplexHeadWirte.class).sheet("gg").doWrite(complexHeadWirteList);
+
     }
 
     @Test
@@ -146,7 +147,7 @@ public class ExcelWriteTest {
     public void templateWrite() {
         String templateName = "D:\\ideawork\\easyexcel-master\\src\\test\\resources\\demo\\demo.xlsx";
         String filename = "templateWrite-" + System.currentTimeMillis() + ".xlsx";
-        EasyExcelFactory.read(templateName).sheet().doRead();
+//        EasyExcelFactory.read(templateName).sheet().doRead();
 
         ExcelWriter build = EasyExcelFactory.write(filename, DemoData.class)
                 .withTemplate(templateName)
@@ -255,7 +256,8 @@ public class ExcelWriteTest {
 //        EasyExcelFactory.write(filename).withTemplate(templateName).sheet().doFill(fillDataList);
         ExcelWriter excelWriter = EasyExcelFactory.write(filename).withTemplate(templateName)
                 .registerWriteHandler(new CustomHandler()).build();
-        WriteSheet writeSheet = EasyExcelFactory.writerSheet().build();
+        WriteSheet writeSheet = EasyExcelFactory.writerSheet(0).build();
+        WriteSheet writeSheet1 = EasyExcelFactory.writerSheet(1,"dfd").build();
 
         FillConfig fillConfig = FillConfig.builder().forceNewRow(true).build();
         Map<String, String> map = new HashMap<>();
@@ -271,23 +273,28 @@ public class ExcelWriteTest {
     public void fillHorizontalTest() {
         String templateName = "fillHorizontalTemplate.xlsx";
         String filename = "fillHorizontalTest-" + System.currentTimeMillis() + ".xlsx";
-        ExcelWriter excelWriter = EasyExcelFactory.write(filename).withTemplate(templateName).build();
-        WriteSheet writeSheet = EasyExcelFactory.writerSheet().build();
-        Map<String, String> map1 = new HashMap<>();
-        Map<String, String> map2 = new HashMap<>();
-        Map<String, String> map3 = new HashMap<>();
-        map1.put("no", "1");
-        map1.put("name", "zpc");
-        map2.put("no", "2");
-        map2.put("name", "lisi");
-        map3.put("no", "3");
-        map3.put("name", "furi");
-        List<Map<String, String>> datas = new ArrayList<>();
-        datas.add(map1);
-        datas.add(map2);
-        datas.add(map3);
-        FillConfig fillConfig = FillConfig.builder().forceNewRow(Boolean.TRUE).build();
-        excelWriter.fill(datas, fillConfig, writeSheet);
+        ExcelWriter excelWriter = EasyExcelFactory.write(filename).withTemplate(templateName)
+                .registerWriteHandler(new MyHandler()).build();
+        for (int i = 0; i < 2; i++) {
+            WriteSheet writeSheet = EasyExcelFactory.writerSheet(i,"df"+i).build();
+
+            Map<String, String> map1 = new HashMap<>();
+            Map<String, String> map2 = new HashMap<>();
+            Map<String, String> map3 = new HashMap<>();
+            map1.put("no", "1");
+            map1.put("name", "zpc");
+            map2.put("no", "2");
+            map2.put("name", "lisi");
+            map3.put("no", "3");
+            map3.put("name", "furi");
+            List<Map<String, String>> datas = new ArrayList<>();
+            datas.add(map1);
+            datas.add(map2);
+            datas.add(map3);
+            FillConfig fillConfig = FillConfig.builder().forceNewRow(Boolean.TRUE).build();
+            excelWriter.fill(datas, fillConfig, writeSheet);
+        }
+
 
 //        excelWriter.fill(fillDataList, fillConfig, writeSheet);
         excelWriter.finish();
