@@ -1,19 +1,10 @@
 package com.df.functional.easyexcel;
 
 import com.alibaba.excel.EasyExcelFactory;
-import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.ExcelWriter;
-import com.alibaba.excel.enums.WriteDirectionEnum;
-import com.alibaba.excel.enums.WriteTypeEnum;
-import com.alibaba.excel.read.metadata.ReadSheet;
-import com.alibaba.excel.read.metadata.ReadWorkbook;
-import com.alibaba.excel.util.WorkBookUtil;
-import com.alibaba.excel.write.builder.ExcelWriterSheetBuilder;
-import com.alibaba.excel.write.handler.CellWriteHandler;
 import com.alibaba.excel.write.merge.LoopMergeStrategy;
 import com.alibaba.excel.write.merge.OnceAbsoluteMergeStrategy;
 import com.alibaba.excel.write.metadata.WriteSheet;
-import com.alibaba.excel.write.metadata.WriteWorkbook;
 import com.alibaba.excel.write.metadata.fill.FillConfig;
 import com.alibaba.excel.write.metadata.style.WriteCellStyle;
 import com.alibaba.excel.write.metadata.style.WriteFont;
@@ -22,30 +13,14 @@ import com.alibaba.excel.write.style.row.SimpleRowHeightStyleStrategy;
 import com.df.functional.easyexcel.entity.ComplexHeadWirte;
 import com.df.functional.easyexcel.entity.DemoData;
 import com.df.functional.easyexcel.entity.FillData;
-import com.df.functional.easyexcel.entity.TemplateEntity;
 import com.df.functional.easyexcel.handler.CustomHandler;
 import com.df.functional.easyexcel.handler.MyHandler;
 import com.df.functional.easyexcel.listener.TemplateListener;
-import com.df.functional.util.ExcelUtil;
-import org.apache.poi.ss.formula.functions.Complex;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
-import org.mockito.internal.junit.ExceptionFactory;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * create by hanyli 2019/12/4
@@ -233,14 +208,14 @@ public class ExcelWriteTest {
     }
 
     private List<List<String>> head() {
-        List<List<String>> list = new ArrayList<List<String>>();
-        List<String> head0 = new ArrayList<String>();
+        List<List<String>> list = new ArrayList<>();
+        List<String> head0 = new ArrayList<>();
         head0.add("字符串" + System.currentTimeMillis());
 //        head0.add("字符串" + System.currentTimeMillis());
-        List<String> head1 = new ArrayList<String>();
+        List<String> head1 = new ArrayList<>();
         head1.add("数字" + System.currentTimeMillis());
 //        head1.add("数字1" + System.currentTimeMillis());
-        List<String> head2 = new ArrayList<String>();
+        List<String> head2 = new ArrayList<>();
         head2.add("日期" + System.currentTimeMillis());
 //        head2.add("日期1" + System.currentTimeMillis());
         list.add(head0);
@@ -257,13 +232,13 @@ public class ExcelWriteTest {
         ExcelWriter excelWriter = EasyExcelFactory.write(filename).withTemplate(templateName)
                 .registerWriteHandler(new CustomHandler()).build();
         WriteSheet writeSheet = EasyExcelFactory.writerSheet(0).build();
-        WriteSheet writeSheet1 = EasyExcelFactory.writerSheet(1,"dfd").build();
+        WriteSheet writeSheet1 = EasyExcelFactory.writerSheet(1, "dfd").build();
 
         FillConfig fillConfig = FillConfig.builder().forceNewRow(true).build();
         Map<String, String> map = new HashMap<>();
         map.put("name", "list");
 //        excelWriter.fill(map, writeSheet);
-        excelWriter.fill(map,fillConfig, writeSheet);
+        excelWriter.fill(map, fillConfig, writeSheet);
 //        excelWriter.fill(fillDataList,fillConfig, writeSheet);
 
         excelWriter.finish();
@@ -276,7 +251,7 @@ public class ExcelWriteTest {
         ExcelWriter excelWriter = EasyExcelFactory.write(filename).withTemplate(templateName)
                 .registerWriteHandler(new MyHandler()).build();
         for (int i = 0; i < 2; i++) {
-            WriteSheet writeSheet = EasyExcelFactory.writerSheet(i,"df"+i).build();
+            WriteSheet writeSheet = EasyExcelFactory.writerSheet(i, "df" + i).build();
 
             Map<String, String> map1 = new HashMap<>();
             Map<String, String> map2 = new HashMap<>();
