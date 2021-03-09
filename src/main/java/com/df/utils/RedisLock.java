@@ -66,7 +66,6 @@ public class RedisLock implements Lock {
     public boolean tryLock() {
         String uuid = UUID.randomUUID().toString();
         Object execute = redisTemplate.execute(setScript, Collections.singletonList(KEY), uuid);
-
         if (L.equals(execute)) {
             local.set(uuid);
             return true;

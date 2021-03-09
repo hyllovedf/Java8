@@ -2,6 +2,8 @@ package com.df.functional.test;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 
 /**
  * @author hanyli
@@ -19,5 +21,38 @@ public class OrderTest {
         for (Map.Entry<Integer, String> entry : map.entrySet()) {
             System.out.println(entry.getKey());
         }
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(2, () -> {
+            System.out.println("triped go");
+        });
+        new Thread(()->{
+            try {
+                cyclicBarrier.await();
+                System.out.println("one");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (BrokenBarrierException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        new Thread(()->{
+            try {
+                cyclicBarrier.await();
+                System.out.println("two");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (BrokenBarrierException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        new Thread(()->{
+            try {
+                cyclicBarrier.await();
+                System.out.println("three");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (BrokenBarrierException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 }

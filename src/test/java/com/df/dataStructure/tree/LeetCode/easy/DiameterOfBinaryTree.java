@@ -17,7 +17,7 @@ public class DiameterOfBinaryTree {
 
     public int diameterOfBinaryTree(TreeNode root) {
         dfs(root);
-        return ans - 1;
+        return ans;
     }
 
     private int dfs(TreeNode root) {

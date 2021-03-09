@@ -15,12 +15,12 @@ public class IntersectionNode {
         ListNode pa = headA;
         ListNode pb = headB;
         while (pa != pb) {
-            if (pa.next == null) {
+            if (pa == null) {
                 pa = headB;
             } else {
                 pa = pa.next;
             }
-            if (pb.next == null) {
+            if (pb == null) {
                 pb = headA;
             } else {
                 pb = pb.next;

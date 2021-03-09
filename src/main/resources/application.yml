@@ -32,11 +32,11 @@ spring:
     open-in-view: true
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.Oracle10gDialect
-        cache:
-          use_second_level_cache: false
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.Oracle10gDialect
+#        cache:
+#          use_second_level_cache: false
     show-sql: true
 mybatis:
   mapper-locations: classpath:mapper/*
