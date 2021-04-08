@@ -25,10 +25,10 @@ public class TransProducer {
         producer.setTransactionListener(transactionListener);
         //启动消息生产者
         producer.start();
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 2; i++) {
             try {
                 Message msg = new Message("TransactionTopic", i+"", "KEY" + i,
-                        ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
+                        ("ddddd  " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
                 SendResult sendResult = producer.sendMessageInTransaction(msg, null);
                 System.out.printf("%s%n", sendResult);
                 TimeUnit.SECONDS.sleep(1);
@@ -36,6 +36,6 @@ public class TransProducer {
                 e.printStackTrace();
             }
         }
-        //producer.shutdown();
+        producer.shutdown();
     }
 }
